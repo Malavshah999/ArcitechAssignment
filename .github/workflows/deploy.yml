@@ -25,7 +25,7 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no -i /path/to/your-key-pair.pem ubuntu@your-ec2-public-dns "
+          ssh -o StrictHostKeyChecking=no -i my-demo-arci.pem ubuntu@ec2-13-201-26-207.ap-south-1.compute.amazonaws.com "
             cd ~/flask_app &&
             git pull origin main &&
             sudo systemctl restart gunicorn
