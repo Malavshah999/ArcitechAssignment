@@ -1,32 +1,27 @@
 name: Deploy to EC2
-
 on:
   push:
     branches:
       - main
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.x
-
+          python-version: 3.12
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install flask gunicorn
-
+          flask --version
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no -i my-demo-arci.pem ubuntu@ec2-13-201-26-207.ap-south-1.compute.amazonaws.com "
-            cd ~/flask_app &&
+            cd /flask_app &&
             git pull origin main &&
             sudo systemctl restart gunicorn
           "
